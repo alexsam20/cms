@@ -10,6 +10,10 @@ class PagesRepository
     public function __construct(private PDO $pdo) {}
 
     public function fetchForNavigation(): array {
+        return $this->get();
+    }
+
+    public function get(): array {
         /*$stmt = $this->pdo->query('SELECT * FROM `pages` ORDER BY `id` ASC');
         return  $stmt->fetchAll(PDO::FETCH_CLASS, PageModel::class);*/
 
