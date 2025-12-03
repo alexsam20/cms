@@ -39,6 +39,10 @@ else if ($route === 'admin/pages') {
     $pagesAdminController = $container->get('pagesAdminController');
     $pagesAdminController->index();
 }
+else if ($route === 'admin/pages/create') {
+    $pagesAdminController = $container->get('pagesAdminController');
+    $pagesAdminController->create();
+}
 else {
     $notFoundController = $container->get('notFoundController');
     $notFoundController->error404();
