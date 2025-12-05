@@ -52,4 +52,10 @@ class PagesRepository
         $stmt->bindValue(':content', $content);
         $stmt->execute();
     }
+
+    public function delete(int $id) {
+        $stmt = $this->pdo->prepare('DELETE FROM `pages` WHERE `id` = :id');
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 }
