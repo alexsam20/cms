@@ -40,19 +40,19 @@ $container->bind('loginController', function() use($container) {
         $authService
     );
 });
-/*$container->bind('csrfHelper', function() {
+$container->bind('csrfHelper', function() {
     return new \App\Support\CsrfHelper();
 });
 
 $csrfHelper = $container->get('csrfHelper');
-$csrfHelper->handle();*/
+$csrfHelper->handle();
 
-// var_dump($csrfHelper->generateToken());
-/*function csrf_token() {
+//var_dump($csrfHelper->generateToken());
+function csrf_token() {
     global $container;
     $csrfHelper = $container->get('csrfHelper');
     return $csrfHelper->generateToken();
-}*/
+}
 
 $route = @(string) ($_GET['route'] ?? 'pages');
 
