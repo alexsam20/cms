@@ -4,7 +4,7 @@ namespace App\Frontend\Controller;
 
 use App\Repository\PagesRepository;
 
-class AbstractController
+abstract class AbstractController
 {
     public function __construct(protected PagesRepository $pagesRepository) {}
 

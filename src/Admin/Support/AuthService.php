@@ -4,14 +4,20 @@ namespace App\Admin\Support;
 
 use PDO;
 
-class AuthService
-{
+class AuthService {
+
     public function __construct(private PDO $pdo) {}
 
     private function ensureSession() {
         if (session_id() === '') {
             session_start();
         }
+    }
+
+    public function logout() {
+        $this->ensureSession();
+        unset($_SESSION['adminUserId']);
+        session_regenerate_id();
     }
 
     public function handleLogin(string $username, string $password): bool {

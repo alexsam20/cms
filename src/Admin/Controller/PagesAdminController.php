@@ -4,23 +4,27 @@ namespace App\Admin\Controller;
 
 use App\Repository\PagesRepository;
 
-class PagesAdminController extends AbstractAdminController
-{
-    public function __construct(private PagesRepository $pagesRepository)
-    {
+use App\Admin\Support\AuthService;
+
+class PagesAdminController extends AbstractAdminController {
+
+    public function __construct(
+        AuthService $authService,
+        private PagesRepository $pagesRepository
+    ) {
+        parent::__construct($authService);
     }
 
-    public function index()
-    {
+    public function index() {
         $pages = $this->pagesRepository->get();
         $this->render('pages/index', [
             'pages' => $pages
         ]);
     }
 
-    public function create()
-    {
+    public function create() {
         $errors = [];
+
         if (!empty($_POST)) {
             $title = @(string) ($_POST['title'] ?? '');
             $slug = @(string) ($_POST['slug'] ?? '');
@@ -50,6 +54,14 @@ class PagesAdminController extends AbstractAdminController
         ]);
     }
 
+    public function delete() {
+        $id = @(int) ($_POST['id'] ?? 0);
+        if (!empty($id)) {
+            $this->pagesRepository->delete($id);
+        }
+        header("Location: index.php?route=admin/pages");
+    }
+
     public function edit() {
         $errors = [];
         $id = @(int) ($_GET['id'] ?? 0);
@@ -77,13 +89,5 @@ class PagesAdminController extends AbstractAdminController
             'page' => $page,
             'errors' => $errors
         ]);
-    }
-
-    public function delete() {
-        $id = @(int) ($_POST['id'] ?? 0);
-        if (!empty($id)) {
-            $this->pagesRepository->delete($id);
-        }
-        header("Location: index.php?route=admin/pages");
     }
 }

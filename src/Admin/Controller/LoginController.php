@@ -4,14 +4,19 @@ namespace App\Admin\Controller;
 
 use App\Admin\Support\AuthService;
 
-class LoginController extends AbstractAdminController
-{
-    public function __construct(private AuthService $authService) {}
+class LoginController extends AbstractAdminController {
+
+    public function logout() {
+        $this->authService->logout();
+        header('Location: index.php?' . http_build_query(['route' => 'admin/login']));
+    }
+
     public function login() {
         if ($this->authService->isLoggedIn()) {
             header('Location: index.php?' . http_build_query(['route' => 'admin/pages']));
             return;
         }
+
         // var_dump("LoginController::login() has been called!");
         $loginError = false;
         if (!empty($_POST)) {
